@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 25, 2021 at 10:12 AM
+-- Generation Time: Oct 26, 2021 at 04:17 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -43,6 +43,29 @@ CREATE TABLE `administrator` (
 
 INSERT INTO `administrator` (`id`, `healthcarecenters`, `username`, `pass`, `fullname`, `email`, `staffid`) VALUES
 (1, 'HBMFamilyClinic', 'ahmed', '12345', 'ahmed omar', 'ahmed@gmail.com', 11111);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `batch`
+--
+
+CREATE TABLE `batch` (
+  `batchNo` int(11) NOT NULL,
+  `expiryDate` date NOT NULL,
+  `numberOfPendingAppointment` int(100) DEFAULT NULL,
+  `quantityAvailable` int(100) NOT NULL,
+  `quantityAdministered` int(100) DEFAULT NULL,
+  `vaccineID` int(11) NOT NULL,
+  `centreName` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `batch`
+--
+
+INSERT INTO `batch` (`batchNo`, `expiryDate`, `numberOfPendingAppointment`, `quantityAvailable`, `quantityAdministered`, `vaccineID`, `centreName`) VALUES
+(1, '2021-10-30', NULL, 100, NULL, 2, 'BMC Hospital');
 
 -- --------------------------------------------------------
 
@@ -99,6 +122,33 @@ CREATE TABLE `vaccination` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `vaccination`
+--
+
+INSERT INTO `vaccination` (`vaccinationID`, `appointmentDate`, `status`, `remark`, `userID`, `batchNo`) VALUES
+(1, '2021-10-30', 'PENDING', '', 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vaccine`
+--
+
+CREATE TABLE `vaccine` (
+  `vaccineID` int(11) NOT NULL,
+  `manufacturer` varchar(100) NOT NULL,
+  `vaccineName` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `vaccine`
+--
+
+INSERT INTO `vaccine` (`vaccineID`, `manufacturer`, `vaccineName`) VALUES
+(1, 'BMC-H', 'Phizer'),
+(2, 'TestVac', 'Kinc');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -107,6 +157,14 @@ CREATE TABLE `vaccination` (
 --
 ALTER TABLE `administrator`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `batch`
+--
+ALTER TABLE `batch`
+  ADD PRIMARY KEY (`batchNo`),
+  ADD KEY `centreName` (`centreName`),
+  ADD KEY `vaccineID` (`vaccineID`);
 
 --
 -- Indexes for table `healthcare_centre`
@@ -125,7 +183,14 @@ ALTER TABLE `patient`
 --
 ALTER TABLE `vaccination`
   ADD PRIMARY KEY (`vaccinationID`),
-  ADD KEY `userID` (`userID`);
+  ADD KEY `userID` (`userID`),
+  ADD KEY `batchNo` (`batchNo`);
+
+--
+-- Indexes for table `vaccine`
+--
+ALTER TABLE `vaccine`
+  ADD PRIMARY KEY (`vaccineID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -144,14 +209,34 @@ ALTER TABLE `patient`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `vaccination`
+--
+ALTER TABLE `vaccination`
+  MODIFY `vaccinationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `vaccine`
+--
+ALTER TABLE `vaccine`
+  MODIFY `vaccineID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `batch`
+--
+ALTER TABLE `batch`
+  ADD CONSTRAINT `batch_ibfk_1` FOREIGN KEY (`centreName`) REFERENCES `healthcare_centre` (`centreName`),
+  ADD CONSTRAINT `batch_ibfk_2` FOREIGN KEY (`vaccineID`) REFERENCES `vaccine` (`vaccineID`);
 
 --
 -- Constraints for table `vaccination`
 --
 ALTER TABLE `vaccination`
-  ADD CONSTRAINT `vaccination_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `patient` (`id`);
+  ADD CONSTRAINT `vaccination_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `patient` (`id`),
+  ADD CONSTRAINT `vaccination_ibfk_2` FOREIGN KEY (`batchNo`) REFERENCES `batch` (`batchNo`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
