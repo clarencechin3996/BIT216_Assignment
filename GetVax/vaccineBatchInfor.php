@@ -1,6 +1,6 @@
 <?php
-require_once 'db.php';
 session_start();
+$name = $_SESSION["username"];
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -69,7 +69,7 @@ session_start();
             </li>
           </ul>
           <span class="navbar-text" style="color: black;">
-            Welcome <?php echo $_SESSION["username"] ?><a href="login.html" style="text-decoration: none; margin-right: 30px;"> | Log Out</a>
+            Welcome <?php echo $name ?><a href="login.html" style="text-decoration: none; margin-right: 30px;"> | Log Out</a>
           </span>
         </div>
       </div>
@@ -81,15 +81,15 @@ session_start();
       if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
       }
-      $sql = "SELECT * FROM administrator WHERE username = 'Kong';";
+      $sql = "SELECT * FROM administrator WHERE username = '$name';";
       $result = $conn->query($sql);
-      
-      while($row = mysqli_fetch_assoc($result)){
+
+      while ($row = mysqli_fetch_assoc($result)) {
         $hc = $row['healthcarecenters'];
       }
       ?>
 
-      <h3>Healthcare Centre: <?php echo $hc?></h3>
+      <h3>Healthcare Centre: <?php echo $hc ?></h3>
       <table>
         <tr>
           <th>Vaccine Name</th>
@@ -103,7 +103,7 @@ session_start();
           die("Connection Failed: " . $conn->connect_error);
         }
 
-        $sql = "SELECT vaccineName, batchNo,numberOfPendingAppointment FROM vaccine, batch WHERE batch.vaccineID = vaccine.vaccineID AND batch.centreName = 'CherryHos';";
+        $sql = "SELECT vaccineName, batchNo,numberOfPendingAppointment FROM vaccine, batch WHERE batch.vaccineID = vaccine.vaccineID AND centreName ='$hc'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
