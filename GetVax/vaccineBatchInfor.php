@@ -118,13 +118,8 @@ $name = $_SESSION["username"];
         ?>
       </table>
 
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Enter BatchNo:" aria-label="Enter BatchNo:" aria-describedby="button-addon2" id="textbatch">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Find</button>
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete</button>
-      </div>
+     
       <form action="" method="post">
-
         <select class="form-control" id='batchNo' name="batchNo">
           <option disabled selected>-- Select batch number --</option>
           <?php
@@ -169,7 +164,7 @@ $name = $_SESSION["username"];
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
           while ($row = $result->fetch_assoc()) {
-            echo "<tr><td>" . $row["expiryDate"] . "</td><td>" . $row["numberOfPendingAppointment"] . "</td><td>" . $row["quantityAvailable"] . "</td><td>" . $row["quantityAdministered"]. "</td></tr>";
+            echo "<tr><td>" . $row["expiryDate"] . "</td><td>" . $row["numberOfPendingAppointment"] . "</td><td>" . $row["quantityAvailable"] . "</td><td>" . $row["quantityAdministered"] . "</td></tr>";
           }
           echo "</table>";
         } else {
@@ -188,6 +183,23 @@ $name = $_SESSION["username"];
           <th>Appointment Date</th>
           <th>Status</th>
         </tr>
+        <?php
+        $conn = mysqli_connect("localhost", "root", "", "getvax");
+        if ($conn->connect_error) {
+          die("Connection Failed: " . $conn->connect_error);
+        }
+        $sql = "SELECT vaccinationID, appointmentDate, status_s FROM vaccination WHERE batchNo = '$selected'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+            echo "<tr><td>" . $row["vaccinationID"] . "</td><td>" . $row["appointmentDate"] . "</td><td>" . $row["status_s"]. "</td></tr>";
+          }
+          echo "</table>";
+        } else {
+          echo "0 result";
+        }
+        $conn->close();
+        ?>
       </table>
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Enter Vaccination ID:" aria-label="Enter Vaccination ID:" aria-describedby="button-addon2" id="textbatch">
