@@ -123,39 +123,71 @@ $name = $_SESSION["username"];
         <button class="btn btn-outline-secondary" type="button" id="button-addon2">Find</button>
         <button class="btn btn-outline-secondary" type="button" id="button-addon2">Delete</button>
       </div>
+      <form action="" method="post">
+
+        <select class="form-control" id='batchNo' name="batchNo">
+          <option disabled selected>-- Select batch number --</option>
+          <?php
+          $conn = mysqli_connect("localhost", "root", "", "getvax");
+          if ($conn->connect_error) {
+            die("Connection Failed: " . $conn->connect_error);
+          }
+          $sql = "SELECT * From batch WHERE centreName = '$hc'";
+          $result = $conn->query($sql);
+
+
+          while ($data = mysqli_fetch_array($result)) {
+            echo "<option value='" . $data['batchNo'] . "'>" . $data['batchNo'] . "</option>";  // displaying data in option menu
+          }
+          ?>
+        </select>
+        <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2"> Find </button>
+      </form>
 
 
       <!--Healthcare Centre Batch Information Table-->
       <h2>Batch Information</h2>
-      <table style="width:80%; border-spacing:0; text-align: center;" class="" id="">
-        <thead>
-          <tr>
-            <th>Expiry Date</th>
-            <th>Number of Pending Appointment</th>
-            <th>Quantity Available</th>
-            <th>Quantity Administered</th>
-          </tr>
-        </thead>
-        <tbody>
+      <table style="width:100%; border-spacing:0; text-align: center;">
+        <tr>
+          <th>Expiry Date</th>
+          <th>Number of Pending Appointment</th>
+          <th>Quantity Available</th>
+          <th>Quantity Administered</th>
 
-        </tbody>
-
+        </tr>
+        <?php
+        $conn = mysqli_connect("localhost", "root", "", "getvax");
+        if ($conn->connect_error) {
+          die("Connection Failed: " . $conn->connect_error);
+        }
+        if (isset($_POST['submit'])) {
+          if (!empty($_POST['batchNo'])) {
+            $selected = $_POST['batchNo'];
+          }
+        }
+        $sql = "SELECT expiryDate, numberOfPendingAppointment, quantityAvailable, quantityAdministered FROM batch WHERE batchNo = '$selected'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+            echo "<tr><td>" . $row["expiryDate"] . "</td><td>" . $row["numberOfPendingAppointment"] . "</td><td>" . $row["quantityAvailable"] . "</td><td>" . $row["quantityAdministered"]. "</td></tr>";
+          }
+          echo "</table>";
+        } else {
+          echo "0 result";
+        }
+        $conn->close();
+        ?>
       </table>
 
       <!--Healthcare Centre Vaccine Batch Information Table-->
       </table>
       <h2>Vaccination List</h2>
-      <table style="width:60%; border-spacing:0;" class="d" id="vaccinationtbl">
-        <thead>
-          <tr>
-            <th>Vaccination ID</th>
-            <th>Appointment Date</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
+      <table style="width:60%; border-spacing:0;">
+        <tr>
+          <th>Vaccination ID</th>
+          <th>Appointment Date</th>
+          <th>Status</th>
+        </tr>
       </table>
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Enter Vaccination ID:" aria-label="Enter Vaccination ID:" aria-describedby="button-addon2" id="textbatch">
