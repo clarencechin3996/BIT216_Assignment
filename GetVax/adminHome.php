@@ -1,5 +1,6 @@
 <?php
 session_start();
+$name = $_SESSION["username"];
 ?>
 
 <!DOCTYPE HTML>
@@ -51,7 +52,7 @@ session_start();
             </li>
           </ul>
           <span class="navbar-text" style="color: black;">
-            Welcome <?php echo $_SESSION["username"] ?><a href="login.html" style="text-decoration: none; margin-right: 30px;"> | Log Out</a>
+            Welcome <?php echo $name ?><a href="login.html" style="text-decoration: none; margin-right: 30px;"> | Log Out</a>
           </span>
         </div>
       </div>
