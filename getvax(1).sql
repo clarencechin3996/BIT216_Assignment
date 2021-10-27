@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 26, 2021 at 04:17 PM
+-- Generation Time: Oct 27, 2021 at 03:21 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -65,7 +65,9 @@ CREATE TABLE `batch` (
 --
 
 INSERT INTO `batch` (`batchNo`, `expiryDate`, `numberOfPendingAppointment`, `quantityAvailable`, `quantityAdministered`, `vaccineID`, `centreName`) VALUES
-(1, '2021-10-30', NULL, 100, NULL, 2, 'BMC Hospital');
+(1, '2021-10-30', 2, 100, NULL, 2, 'BMC Hospital'),
+(2, '2021-11-03', NULL, 22, NULL, 2, 'BMC Hospital'),
+(3, '2021-11-10', NULL, 21, NULL, 1, 'BMC Hospital');
 
 -- --------------------------------------------------------
 
@@ -83,7 +85,8 @@ CREATE TABLE `healthcare_centre` (
 --
 
 INSERT INTO `healthcare_centre` (`centreName`, `address`) VALUES
-('BMC Hospital', 'Jalan 1 Cheras');
+('BMC Hospital', 'Jalan 1 Cheras'),
+('CherryHos', 'Taman 2 Gobbo');
 
 -- --------------------------------------------------------
 
