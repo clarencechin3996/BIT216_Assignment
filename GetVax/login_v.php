@@ -12,6 +12,7 @@ if(isset($_POST))
     // we can use if (empty) to check if there no element on the array ROW
     {
       $_SESSION["username"]=$username;
+     
       header("refresh:1; url=adminHome.php");
       echo '<script>alert("Successfully Logged in as Healthcare Administrator")</script>';
 
