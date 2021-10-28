@@ -43,6 +43,7 @@ $name = $_SESSION["username"];
       text-align: center;
     }
   </style>
+
 </head>
 
 <body>
@@ -88,7 +89,6 @@ $name = $_SESSION["username"];
         $hc = $row['healthcarecenters'];
       }
       ?>
-
       <h3>Healthcare Centre: <?php echo $hc ?></h3>
       <table>
         <tr>
@@ -118,8 +118,7 @@ $name = $_SESSION["username"];
         ?>
       </table>
 
-     
-      <form action="" method="post">
+      <form method="post">
         <select class="form-control" id='batchNo' name="batchNo">
           <option disabled selected>-- Select batch number --</option>
           <?php
@@ -129,7 +128,6 @@ $name = $_SESSION["username"];
           }
           $sql = "SELECT * From batch WHERE centreName = '$hc'";
           $result = $conn->query($sql);
-
 
           while ($data = mysqli_fetch_array($result)) {
             echo "<option value='" . $data['batchNo'] . "'>" . $data['batchNo'] . "</option>";  // displaying data in option menu
@@ -148,7 +146,6 @@ $name = $_SESSION["username"];
           <th>Number of Pending Appointment</th>
           <th>Quantity Available</th>
           <th>Quantity Administered</th>
-
         </tr>
         <?php
         $conn = mysqli_connect("localhost", "root", "", "getvax");
@@ -160,6 +157,7 @@ $name = $_SESSION["username"];
             $selected = $_POST['batchNo'];
           }
         }
+        error_reporting(0); //Disable showing null error
         $sql = "SELECT expiryDate, numberOfPendingAppointment, quantityAvailable, quantityAdministered FROM batch WHERE batchNo = '$selected'";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
@@ -167,8 +165,6 @@ $name = $_SESSION["username"];
             echo "<tr><td>" . $row["expiryDate"] . "</td><td>" . $row["numberOfPendingAppointment"] . "</td><td>" . $row["quantityAvailable"] . "</td><td>" . $row["quantityAdministered"] . "</td></tr>";
           }
           echo "</table>";
-        } else {
-          echo "0 result";
         }
         $conn->close();
         ?>
@@ -192,11 +188,9 @@ $name = $_SESSION["username"];
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
           while ($row = $result->fetch_assoc()) {
-            echo "<tr><td>" . $row["vaccinationID"] . "</td><td>" . $row["appointmentDate"] . "</td><td>" . $row["status_s"]. "</td></tr>";
+            echo "<tr><td>" . $row["vaccinationID"] . "</td><td>" . $row["appointmentDate"] . "</td><td>" . $row["status_s"] . "</td></tr>";
           }
           echo "</table>";
-        } else {
-          echo "0 result";
         }
         $conn->close();
         ?>
