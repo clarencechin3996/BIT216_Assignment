@@ -119,7 +119,7 @@ $name = $_SESSION["username"];
       </table>
 
       <form method="post">
-        <select class="form-control" id='batchNo' name="batchNo">
+        <select class="form-control" name="batchNo">
           <option disabled selected>-- Select batch number --</option>
           <?php
           $conn = mysqli_connect("localhost", "root", "", "getvax");
@@ -195,15 +195,19 @@ $name = $_SESSION["username"];
         $conn->close();
         ?>
       </table>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Enter Vaccination ID:" aria-label="Enter Vaccination ID:" aria-describedby="button-addon2" id="textbatch">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Confirm Vaccination
-          Appointment</button>
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Record Vaccination
-          Administered</button>
-      </div>
+      <form method="POST">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Enter Vaccination ID:" aria-label="Enter Vaccination ID:" aria-describedby="button-addon2" id="vaccinationID" name="vaccinationID">
+          <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2" formaction="confirmVaccineAppointment.php">Confirm Vaccination
+            Appointment</button>
+          <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2" formaction="recordVaccineAdministered.php">Record Vaccination
+            Administered</button>
+        </div>
+      </form>
 
-
+      <?php
+      
+      ?>
     </div>
   </div>
   </div>

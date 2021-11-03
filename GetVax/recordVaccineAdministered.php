@@ -1,3 +1,7 @@
+<?php
+session_start();
+$name = $_SESSION["username"];
+?>
 <!DOCTYPE HTML>
 <html>
 
@@ -42,7 +46,20 @@
                     <th>Vaccine Name</th>
                     <th>Vaccination Date</th>
                 </tr>
-
+                <?php
+                $conn = mysqli_connect("localhost", "root", "", "getvax");
+                if ($conn->connect_error) {
+                    die("Connection Failed: " . $conn->connect_error);
+                }
+                if (isset($_POST['submit'])) {
+                    if (!empty($_POST['vaccinationID'])) {
+                        $selected = $_POST['vaccinationID'];
+                    }
+                }
+                error_reporting(0); //Disable showing null error
+                $sql = "SELECT username, ic, batchNo, expiryDate, manufacturer, vaccineName FROM patient, batch, vaccine";
+                $result = $conn->query($sql);
+                ?>
             </table>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Enter any remarks:" aria-label="Enter remarks:" aria-describedby="button-addon2" id="remark" style="margin-bottom: 30px;">
