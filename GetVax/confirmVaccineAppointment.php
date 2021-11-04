@@ -50,6 +50,7 @@ session_start();
                 <tbody>
                     <tr>
                         <?php
+                        error_reporting(0); //Disable showing null error
                         $conn = mysqli_connect("localhost", "root", "", "getvax");
                         if ($conn->connect_error) {
                             die("Connection Failed: " . $conn->connect_error);
@@ -99,14 +100,53 @@ session_start();
             </table>
 
             <div style="text-align: center; margin-top: 40px">
-                <button onclick="myFunction()" class="btn btn-outline-secondary" type="button" id="button-addon2"><a href="vaccineBatchInfor.php" style="text-decoration: none; color: inherit;">Confirm </a> </button>
-                <button style="margin-left: 30px;" class="btn btn-outline-secondary" type="button" id="button-addon2"><a href="vaccineBatchInfor.php" style="text-decoration: none; color: inherit;">Cancel </a> </button>
+                <form method="post">
+                    <button onclick="status()" class="btn btn-outline-secondary" type="submit" name="confirm" id="confirm">Confirm </button>
+                    <button style="margin-left: 30px;" class="btn btn-outline-secondary" type="button" id="button-addon2"><a href="vaccineBatchInfor.php" style="text-decoration: none; color: inherit;">Cancel </a> </button>
+                </form>
             </div>
-            <script>
-                function myFunction() {
-                    alert("Confirmed Appointment");
+
+
+            <?php
+            function status()
+            {
+                $conn = mysqli_connect("localhost", "root", "", "getvax");
+                if ($conn->connect_error) {
+                    die("Connection Failed: " . $conn->connect_error);
                 }
-            </script>
+                if (isset($_POST['submit'])) {
+                    if (!empty($_POST['vaccinationID'])) {
+                        $vaccinationID = $_POST['vaccinationID'];
+                    }
+                }
+                $sql = "UPDATE vaccination SET status_s = 'CONFIRMED' WHERE vaccinationID = '$vaccinationID'";
+                if ($conn->query($sql) === TRUE) {
+                } else {
+                    echo "Error updating record: " . $conn->error;
+                }
+
+
+                $sql = "SELECT * FROM vaccination WHERE vaccinationID = '$vaccinationID'";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $batchNo = $row["batchNo"];
+                    }
+                }
+                $sql = "UPDATE batch SET numberOfPendingAppointment = numberOfPendingAppointment + 1 WHERE batchNo = '$batchNo'";
+                if ($conn->query($sql) === TRUE) {
+                } else {
+                    echo "Error updating record: " . $conn->error;
+                }
+            }
+
+            if (array_key_exists('confirm', $_POST)) {
+                status();
+            }
+
+
+
+            ?>
 
         </div>
 

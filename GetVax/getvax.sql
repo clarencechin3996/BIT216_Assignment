@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 03, 2021 at 03:43 PM
+-- Generation Time: Nov 04, 2021 at 11:20 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -133,7 +133,8 @@ CREATE TABLE `vaccination` (
 
 INSERT INTO `vaccination` (`vaccinationID`, `appointmentDate`, `status_s`, `remark`, `userID`, `batchNo`) VALUES
 (1, '2021-10-30', 'PENDING', '', 2, 1),
-(2, '2021-11-02', 'PENDING', '', 1, 2);
+(2, '2021-11-02', 'PENDING', '', 1, 2),
+(3, '2021-11-28', 'PENDING', '', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -219,7 +220,7 @@ ALTER TABLE `patient`
 -- AUTO_INCREMENT for table `vaccination`
 --
 ALTER TABLE `vaccination`
-  MODIFY `vaccinationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `vaccinationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `vaccine`

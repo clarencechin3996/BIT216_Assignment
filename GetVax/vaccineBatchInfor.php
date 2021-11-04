@@ -195,19 +195,39 @@ $name = $_SESSION["username"];
         $conn->close();
         ?>
       </table>
-      <form method="POST">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Enter Vaccination ID:" aria-label="Enter Vaccination ID:" aria-describedby="button-addon2" id="vaccinationID" name="vaccinationID">
+      <form method="post">
+        <select class="form-control" name="vaccinationID">
+          <option disabled selected>-- Select vaccinationID: --</option>
+          <?php
+          $conn = mysqli_connect("localhost", "root", "", "getvax");
+          if ($conn->connect_error) {
+            die("Connection Failed: " . $conn->connect_error);
+          }
+          $sql = "SELECT * From vaccination WHERE batchNo = '$selected'";
+          $result = $conn->query($sql);
+          while ($data = mysqli_fetch_array($result)) {
+            echo "<option value='" . $data['vaccinationID'] . "'>" . $data['vaccinationID'] . "</option>";  // displaying data in option menu
+          }
+          $conn->close();
+          ?>
+        </select>
+        <div style="text-align: center; margin-top: 30px">
           <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2" formaction="confirmVaccineAppointment.php">Confirm Vaccination
             Appointment</button>
           <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2" formaction="recordVaccineAdministered.php">Record Vaccination
             Administered</button>
         </div>
+
       </form>
 
-      <?php
-      
-      ?>
+
+
+
+
+
+
+
+
     </div>
   </div>
   </div>
