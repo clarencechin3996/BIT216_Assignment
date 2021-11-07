@@ -48,7 +48,7 @@ $name = $_SESSION["username"];
               <a class="nav-link active" aria-current="page" href="adminHome.php" style="font-weight: bold;">Home</a>
             </li>
             <li class="nav-item" style="margin-left: 20px;">
-              <a class="nav-link" href="vaccineBatchInfor.php">Vaccine Batch Information</a>
+              <a class="nav-link" href="vaccineBatchInfo.php">Vaccine Batch Information</a>
             </li>
           </ul>
           <span class="navbar-text" style="color: black;">
