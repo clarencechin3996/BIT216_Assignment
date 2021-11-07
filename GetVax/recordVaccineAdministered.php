@@ -1,6 +1,29 @@
 <?php
 session_start();
-$name = $_SESSION["username"];
+$conn = mysqli_connect("localhost", "root", "", "getvax");
+if ($conn->connect_error) {
+    die("Connection Failed: " . $conn->connect_error);
+}
+if (isset($_POST['submit'])) {
+    if (!empty($_POST['vaccinationID'])) {
+        $vaccinationID = $_POST['vaccinationID'];
+    } else {
+        echo '<script type="text/javascript">';
+        echo 'alert("No vaccination ID selected! Please select a vaccination ID!");';
+        echo 'window.location = "vaccineBatchInfo.php";';
+        echo '</script>';
+    }
+    $sql = "SELECT * FROM vaccination WHERE vaccinationID = '$vaccinationID'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $userID = $row["userID"];
+            $batchNo = $row["batchNo"];
+        }
+    }
+}
+$_SESSION["VACID"] = $vaccinationID;
+$_SESSION["BATCHNO"] = $batchNo;
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -35,39 +58,22 @@ $name = $_SESSION["username"];
 
         </div>
         <div id="site_content">
-            <h1 style="text-align: center; margin-bottom: 40px;">Record Vaccination Administered</h1>
+            <h1 style="text-align: center; margin: 10px 0 40px 80px;">Record Vaccination Adminstered <button style="margin-left: 30px; float: right;" class="btn btn-outline-secondary" type="button" id="button-addon2"><a href="vaccineBatchInfo.php" style="text-decoration: none; color: inherit;">BACK </a> </button></h1>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Full Name</th>
-                        <th scope="col">IC/Passport</th>
-                        <th scope="col">Batch No</th>
-                        <th scope="col">Expiry Date</th>
-                        <th scope="col">Manufacturer</th>
-                        <th scope="col">Vaccine Name</th>
+                        <th>Full Name</th>
+                        <th>IC/Passport</th>
+                        <th>Batch No</th>
+                        <th>Expiry Date</th>
+                        <th>Manufacturer</th>
+                        <th>Vaccine Name</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <?php
                         error_reporting(0); //Disable showing null error
-                        $conn = mysqli_connect("localhost", "root", "", "getvax");
-                        if ($conn->connect_error) {
-                            die("Connection Failed: " . $conn->connect_error);
-                        }
-                        if (isset($_POST['submit'])) {
-                            if (!empty($_POST['vaccinationID'])) {
-                                $vaccinationID = $_POST['vaccinationID'];
-                            }
-                            $sql = "SELECT * FROM vaccination WHERE vaccinationID = '$vaccinationID'";
-                            $result = $conn->query($sql);
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    $userID = $row["userID"];
-                                    $batchNo = $row["batchNo"];
-                                }
-                            }
-                        }
                         $sql = "SELECT * FROM patient WHERE id = '$userID'";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
@@ -98,14 +104,16 @@ $name = $_SESSION["username"];
                     </tr>
                 </tbody>
             </table>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Enter any remarks:" aria-label="Enter remarks:" aria-describedby="button-addon2" id="remark" style="margin-bottom: 30px;">
-            </div>
-            <div style="text-align: center;">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><a href="vaccineBatchInfor.php" style="text-decoration: none; color: inherit;">Record
-                        Vaccination Administered</a> </button>
-            </div>
-      
+            <form action="updateVaccineAppointment.php" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Enter any remarks:" name="RECORD" style="margin-bottom: 10px;">
+                </div>
+                <div style="text-align: center;">
+                    <button class="btn btn-outline-secondary" type="submit" name="record" id="button-addon2">Record Vaccination Administered</button>
+                </div>
+            </form>
+
+
         </div>
     </div>
 </body>

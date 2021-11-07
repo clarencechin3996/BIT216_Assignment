@@ -60,18 +60,16 @@ $_SESSION["BATCHNO"] = $batchNo;
 
         </div>
         <div id="site_content">
-            <h1 style="text-align: center; margin-bottom: 40px; margin-left: 100px;">Confirm Vaccination Appointment <button style="margin-left: 30px; float: right;" class="btn btn-outline-secondary" type="button" id="button-addon2"><a href="vaccineBatchInfo.php" style="text-decoration: none; color: inherit;">BACK </a> </button>
-            </h1>
-
+            <h1 style="text-align: center; margin: 10px 0 40px 80px;">Confirm Vaccination Appointment <button style="margin-left: 30px; float: right;" class="btn btn-outline-secondary" type="button" id="button-addon2"><a href="vaccineBatchInfo.php" style="text-decoration: none; color: inherit;">BACK </a> </button></h1>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Full Name</th>
-                        <th scope="col">IC/Passport</th>
-                        <th scope="col">Batch No</th>
-                        <th scope="col">Expiry Date</th>
-                        <th scope="col">Manufacturer</th>
-                        <th scope="col">Vaccine Name</th>
+                        <th>Full Name</th>
+                        <th>IC/Passport</th>
+                        <th>Batch No</th>
+                        <th>Expiry Date</th>
+                        <th>Manufacturer</th>
+                        <th>Vaccine Name</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -108,10 +106,11 @@ $_SESSION["BATCHNO"] = $batchNo;
                     </tr>
                 </tbody>
             </table>
-            <form method="post" action="update.php">
-                <div style="text-align: center; margin-top: 40px">
+            <form method="post" action="updateVaccineAppointment.php">
+                <div class="input-group mb-3">
                     <button class="btn btn-outline-secondary" type="submit" name="confirm">Confirm</button>
-                    <button style="margin-left: 30px;" class="btn btn-outline-secondary" type="button" id="myButton" name="answer">Reject</button>
+                    <button class="btn btn-outline-secondary" type="submit" name="reject">Reject</button>
+                    <input type="text" name="REJECT" class="form-control" aria-label="Text input with dropdown button">
                 </div>
             </form>
         </div>

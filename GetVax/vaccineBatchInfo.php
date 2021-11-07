@@ -179,22 +179,23 @@ $name = $_SESSION["username"];
       <!--Healthcare Centre Vaccine Batch Information Table-->
       </table>
       <h2>Vaccination List</h2>
-      <table style="width:60%; border-spacing:0;">
+      <table style="width:90%; border-spacing:0;">
         <tr>
           <th>Vaccination ID</th>
           <th>Appointment Date</th>
           <th>Status</th>
+          <th>Remark</th>
         </tr>
         <?php
         $conn = mysqli_connect("localhost", "root", "", "getvax");
         if ($conn->connect_error) {
           die("Connection Failed: " . $conn->connect_error);
         }
-        $sql = "SELECT vaccinationID, appointmentDate, status_s FROM vaccination WHERE batchNo = '$selected'";
+        $sql = "SELECT * FROM vaccination WHERE batchNo = '$selected'";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
           while ($row = $result->fetch_assoc()) {
-            echo "<tr><td>" . $row["vaccinationID"] . "</td><td>" . $row["appointmentDate"] . "</td><td>" . $row["status_s"] . "</td></tr>";
+            echo "<tr><td>" . $row["vaccinationID"] . "</td><td>" . $row["appointmentDate"] . "</td><td>" . $row["status_s"] . "</td><td>" . $row["remark"] . "</td></tr>";
           }
           echo "</table>";
         }
