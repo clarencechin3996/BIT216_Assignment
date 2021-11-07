@@ -42,6 +42,10 @@ $name = $_SESSION["username"];
       border-top: 1px solid #FFF;
       text-align: center;
     }
+
+    input {
+      display: block;
+    }
   </style>
 
 </head>
@@ -119,22 +123,24 @@ $name = $_SESSION["username"];
       </table>
 
       <form method="post">
-        <select class="form-control" name="batchNo">
-          <option disabled selected>-- Select batch number --</option>
-          <?php
-          $conn = mysqli_connect("localhost", "root", "", "getvax");
-          if ($conn->connect_error) {
-            die("Connection Failed: " . $conn->connect_error);
-          }
-          $sql = "SELECT * From batch WHERE centreName = '$hc'";
-          $result = $conn->query($sql);
+        <div class="input-group sm-1" style="width: 60%;">
+          <select class="form-control" name="batchNo">
+            <option disabled selected>-- Select batch number -- </option>
+            <?php
+            $conn = mysqli_connect("localhost", "root", "", "getvax");
+            if ($conn->connect_error) {
+              die("Connection Failed: " . $conn->connect_error);
+            }
+            $sql = "SELECT * From batch WHERE centreName = '$hc'";
+            $result = $conn->query($sql);
 
-          while ($data = mysqli_fetch_array($result)) {
-            echo "<option value='" . $data['batchNo'] . "'>" . $data['batchNo'] . "</option>";  // displaying data in option menu
-          }
-          ?>
-        </select>
-        <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2"> Find </button>
+            while ($data = mysqli_fetch_array($result)) {
+              echo "<option value='" . $data['batchNo'] . "'>" . $data['batchNo'] . "</option>";  // displaying data in option menu
+            }
+            ?>
+          </select>
+          <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2"> Find </button>
+        </div>
       </form>
 
 
@@ -196,38 +202,28 @@ $name = $_SESSION["username"];
         ?>
       </table>
       <form method="post">
-        <select class="form-control" name="vaccinationID">
-          <option disabled selected>-- Select vaccinationID: --</option>
-          <?php
-          $conn = mysqli_connect("localhost", "root", "", "getvax");
-          if ($conn->connect_error) {
-            die("Connection Failed: " . $conn->connect_error);
-          }
-          $sql = "SELECT * From vaccination WHERE batchNo = '$selected'";
-          $result = $conn->query($sql);
-          while ($data = mysqli_fetch_array($result)) {
-            echo "<option value='" . $data['vaccinationID'] . "'>" . $data['vaccinationID'] . "</option>";  // displaying data in option menu
-          }
-          $conn->close();
-          ?>
-        </select>
-        <div style="text-align: center; margin-top: 30px">
+        <div class="input-group sm-1" style="width: 100%;">
+          <select class="form-control" name="vaccinationID">
+            <option disabled selected>-- Select vaccinationID: --</option>
+            <?php
+            $conn = mysqli_connect("localhost", "root", "", "getvax");
+            if ($conn->connect_error) {
+              die("Connection Failed: " . $conn->connect_error);
+            }
+            $sql = "SELECT * From vaccination WHERE batchNo = '$selected'";
+            $result = $conn->query($sql);
+            while ($data = mysqli_fetch_array($result)) {
+              echo "<option value='" . $data['vaccinationID'] . "'>" . $data['vaccinationID'] . "</option>";  // displaying data in option menu
+            }
+            $conn->close();
+            ?>
+          </select>
           <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2" formaction="confirmVaccineAppointment.php">Confirm Vaccination
             Appointment</button>
           <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2" formaction="recordVaccineAdministered.php">Record Vaccination
             Administered</button>
         </div>
-
       </form>
-
-
-
-
-
-
-
-
-
     </div>
   </div>
   </div>

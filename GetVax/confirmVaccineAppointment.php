@@ -1,5 +1,29 @@
 <?php
 session_start();
+$conn = mysqli_connect("localhost", "root", "", "getvax");
+if ($conn->connect_error) {
+    die("Connection Failed: " . $conn->connect_error);
+}
+if (isset($_POST['submit'])) {
+    if (!empty($_POST['vaccinationID'])) {
+        $vaccinationID = $_POST['vaccinationID'];
+    } else {
+        echo '<script type="text/javascript">';
+        echo 'alert("No vaccination ID selected! Please select a vaccination ID!");';
+        echo 'window.location = "vaccineBatchInfo.php";';
+        echo '</script>';
+    }
+    $sql = "SELECT * FROM vaccination WHERE vaccinationID = '$vaccinationID'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $userID = $row["userID"];
+            $batchNo = $row["batchNo"];
+        }
+    }
+}
+$_SESSION["VACID"] = $vaccinationID;
+$_SESSION["BATCHNO"] = $batchNo;
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -20,6 +44,8 @@ session_start();
     <meta name="keywords" content="website keywords, website keywords" />
     <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
     <link rel="stylesheet" type="text/css" href="style/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -34,7 +60,8 @@ session_start();
 
         </div>
         <div id="site_content">
-            <h1 style="text-align: center; margin-bottom: 40px;">Confirm Vaccination Appointment</h1>
+            <h1 style="text-align: center; margin-bottom: 40px; margin-left: 100px;">Confirm Vaccination Appointment <button style="margin-left: 30px; float: right;" class="btn btn-outline-secondary" type="button" id="button-addon2"><a href="vaccineBatchInfo.php" style="text-decoration: none; color: inherit;">BACK </a> </button>
+            </h1>
 
             <table class="table">
                 <thead class="thead-dark">
@@ -51,23 +78,6 @@ session_start();
                     <tr>
                         <?php
                         error_reporting(0); //Disable showing null error
-                        $conn = mysqli_connect("localhost", "root", "", "getvax");
-                        if ($conn->connect_error) {
-                            die("Connection Failed: " . $conn->connect_error);
-                        }
-                        if (isset($_POST['submit'])) {
-                            if (!empty($_POST['vaccinationID'])) {
-                                $vaccinationID = $_POST['vaccinationID'];
-                            }
-                            $sql = "SELECT * FROM vaccination WHERE vaccinationID = '$vaccinationID'";
-                            $result = $conn->query($sql);
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    $userID = $row["userID"];
-                                    $batchNo = $row["batchNo"];
-                                }
-                            }
-                        }
                         $sql = "SELECT * FROM patient WHERE id = '$userID'";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
@@ -98,56 +108,12 @@ session_start();
                     </tr>
                 </tbody>
             </table>
-
-            <div style="text-align: center; margin-top: 40px">
-                <form method="post">
-                    <button onclick="status()" class="btn btn-outline-secondary" type="submit" name="confirm" id="confirm">Confirm </button>
-                    <button style="margin-left: 30px;" class="btn btn-outline-secondary" type="button" id="button-addon2"><a href="vaccineBatchInfor.php" style="text-decoration: none; color: inherit;">Cancel </a> </button>
-                </form>
-            </div>
-
-
-            <?php
-            function status()
-            {
-                $conn = mysqli_connect("localhost", "root", "", "getvax");
-                if ($conn->connect_error) {
-                    die("Connection Failed: " . $conn->connect_error);
-                }
-                if (isset($_POST['submit'])) {
-                    if (!empty($_POST['vaccinationID'])) {
-                        $vaccinationID = $_POST['vaccinationID'];
-                    }
-                }
-                $sql = "UPDATE vaccination SET status_s = 'CONFIRMED' WHERE vaccinationID = '$vaccinationID'";
-                if ($conn->query($sql) === TRUE) {
-                } else {
-                    echo "Error updating record: " . $conn->error;
-                }
-
-
-                $sql = "SELECT * FROM vaccination WHERE vaccinationID = '$vaccinationID'";
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        $batchNo = $row["batchNo"];
-                    }
-                }
-                $sql = "UPDATE batch SET numberOfPendingAppointment = numberOfPendingAppointment + 1 WHERE batchNo = '$batchNo'";
-                if ($conn->query($sql) === TRUE) {
-                } else {
-                    echo "Error updating record: " . $conn->error;
-                }
-            }
-
-            if (array_key_exists('confirm', $_POST)) {
-                status();
-            }
-
-
-
-            ?>
-
+            <form method="post" action="update.php">
+                <div style="text-align: center; margin-top: 40px">
+                    <button class="btn btn-outline-secondary" type="submit" name="confirm">Confirm</button>
+                    <button style="margin-left: 30px;" class="btn btn-outline-secondary" type="button" id="myButton" name="answer">Reject</button>
+                </div>
+            </form>
         </div>
 
     </div>

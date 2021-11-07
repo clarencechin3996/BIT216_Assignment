@@ -102,14 +102,10 @@ $name = $_SESSION["username"];
                 <input type="text" class="form-control" placeholder="Enter any remarks:" aria-label="Enter remarks:" aria-describedby="button-addon2" id="remark" style="margin-bottom: 30px;">
             </div>
             <div style="text-align: center;">
-                <button onclick="myFunction()" class="btn btn-outline-secondary" type="button" id="button-addon2"><a href="vaccineBatchInfor.php" style="text-decoration: none; color: inherit;">Record
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><a href="vaccineBatchInfor.php" style="text-decoration: none; color: inherit;">Record
                         Vaccination Administered</a> </button>
             </div>
-            <script>
-                function myFunction() {
-                    alert("Administered Complete!");
-                }
-            </script>
+      
         </div>
     </div>
 </body>
