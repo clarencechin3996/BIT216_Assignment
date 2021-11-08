@@ -121,16 +121,16 @@ $name = $_SESSION["username"];
 <footer>
   <div class="container p-1">
     <div class="row">
-      <div style="margin-top: 40px;" class="col-xl-6 col-md-12 mb-4">
-        <h5 style="font-size: 25px; color:white;">GetVax</h5>
+      <div style="margin-top: 20px;" class="col-xl-6 col-md-12 mb-4">
+        <h2 style="font-size: 25px; color:white;">GetVax</h2>
         <p>
           GetVax is an official page for requesting vaccination appointments,
-          and it allows people to select the vaccine of their choice. Many clinics and hospital
+          and it allows to select the vaccine of their choice. Many clinics and hospital
           had join GetVax in order to get everyone who have not been vaccinated yet.
         </p>
       </div>
-      <div class="col-lg-3 col-md-6 mb-4" style="margin-left:260px; margin-top: 40px;">
-        <h4 class="mb-1 text-white">Opening Hours</h5>
+      <div class="col-lg-3 col-md-6 mb-4" style="margin-left:260px; margin-top: 25px;">
+        <h3 class="mb-1 text-white">Opening Hours</h3>
           <table class="table" style="border-color: white; color:whitesmoke;">
             <tbody>
               <tr>
