@@ -20,7 +20,17 @@ if (isset($_POST['confirm'])) {
                 echo 'alert("Appointment had already been confirmed!");';
                 echo 'window.location = "vaccineBatchInfo.php";';
                 echo '</script>';
-            } else {
+            } else if($row["status_s"] === "REJECTED"){
+                echo '<script type="text/javascript">';
+                echo 'alert("Appointment cannot be confirm, it had already REJECTED!");';
+                echo 'window.location = "vaccineBatchInfo.php";';
+                echo '</script>';
+            }else if($row["status_s"] === "ADMINISTERED"){
+                echo '<script type="text/javascript">';
+                echo 'alert("Appointment cannot be confirm, it had already ADMINISTERED!");';
+                echo 'window.location = "vaccineBatchInfo.php";';
+                echo '</script>';
+            }else {
                 $sql = "UPDATE vaccination SET status_s = 'CONFIRMED' WHERE vaccinationID = '$vac'";
                 if ($conn->query($sql) === TRUE) {
                     $sql = "UPDATE batch SET numberOfPendingAppointment = numberOfPendingAppointment + 1 WHERE batchNo = '$batNo'";
@@ -51,13 +61,22 @@ if (isset($_POST['confirm'])) {
         while ($row = $result->fetch_assoc()) {
             if ($row["status_s"] === "REJECTED") {
                 echo '<script type="text/javascript">';
-                echo 'alert("Appointment had already been rejected!");';
+                echo 'alert("Appointment had already been REJECTED!");';
                 echo 'window.location = "vaccineBatchInfo.php";';
                 echo '</script>';
-            } else {
+            } else if($row["status_s"] === "CONFIRMED"){
+                echo '<script type="text/javascript">';
+                echo 'alert("Appointment cannot be rejected, it had already CONFIRMED!");';
+                echo 'window.location = "vaccineBatchInfo.php";';
+                echo '</script>';
+            }else if($row["status_s"] === "ADMINISTERED"){
+                echo '<script type="text/javascript">';
+                echo 'alert("Appointment cannot be rejected, it had already ADMINISTERED!");';
+                echo 'window.location = "vaccineBatchInfo.php";';
+                echo '</script>';
+            }else {
                 $sql = "UPDATE vaccination SET status_s = 'REJECTED', remark = '$remark_reject' WHERE vaccinationID = '$vac'";
                 $conn->query($sql);
-
                 echo '<script type="text/javascript">';
                 echo 'alert("Appointment REJECTED!");';
                 echo 'window.location = "vaccineBatchInfo.php";';
@@ -83,10 +102,15 @@ if (isset($_POST['confirm'])) {
                 echo 'alert("Appointment had already been administered!");';
                 echo 'window.location = "vaccineBatchInfo.php";';
                 echo '</script>';
-            } else {
+            } else if($row["status_s"] === "REJECTED"){
+                echo '<script type="text/javascript">';
+                echo 'alert("Appointment cannot be record, it had already REJECTED!");';
+                echo 'window.location = "vaccineBatchInfo.php";';
+                echo '</script>';
+            }else {
                 $sql = "UPDATE vaccination SET status_s = 'ADMINISTERED', remark = '$remark_record' WHERE vaccinationID = '$vac'";
                 if ($conn->query($sql) === TRUE) {
-                    $sql = "UPDATE batch SET quantityAdministered = quantityAdministered + 1, quantityAvailable = quantityAvailable - 1  WHERE batchNo = '$batNo'";
+                    $sql = "UPDATE batch SET quantityAdministered = quantityAdministered + 1, quantityAvailable = quantityAvailable - 1, numberOfPendingAppointment = numberOfPendingAppointment - 1  WHERE batchNo = '$batNo'";
                     $conn->query($sql);
                 } else {
                     echo "Error updating record: " . $conn->error;
@@ -99,7 +123,5 @@ if (isset($_POST['confirm'])) {
         }
     }
 }
-
-
-
+$conn->close();
 ?>
