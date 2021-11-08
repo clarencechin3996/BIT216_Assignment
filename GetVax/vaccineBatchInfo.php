@@ -22,29 +22,39 @@ $name = $_SESSION["username"];
 
   <link rel="stylesheet" type="text/css" href="style/style.css" />
   <style>
-    table {
-      margin: 10px 0 30px 0;
-      width: 50%;
-      border-spacing: 0;
+    .styled-table {
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 1.04em;
+      font-family: sans-serif;
+      min-width: 400px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     }
 
-    table tr th {
-      background: #47433F;
-      color: #FFF;
-      padding: 10px 4px;
-      text-align: center;
+    .styled-table tr {
+      background-color: #009879;
+      color: #ffffff;
+      text-align: left;
     }
 
-    table tr td {
-      background: #F4F4EE;
-      color: #47433F;
-      padding: 10px 4px;
-      border-top: 1px solid #FFF;
-      text-align: center;
+    .styled-table th,
+    .styled-table td {
+      padding: 12px 15px;
+    }
+
+    .styled-table tr {
+      border-bottom: 1px solid #dddddd;
     }
 
     input {
       display: block;
+    }
+
+    footer {
+      background-color: #008080;
+      color: whitesmoke;
+      font-size: 13px;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
   </style>
 
@@ -93,142 +103,177 @@ $name = $_SESSION["username"];
         $hc = $row['healthcarecenters'];
       }
       ?>
-      <h3>Healthcare Centre: <?php echo $hc ?></h3>
-      <table>
-        <tr>
-          <th>Vaccine Name</th>
-          <th>Batch No</th>
-          <th>Number of Pending appointment</th>
-        </tr>
+      <h2>Healthcare Centre:<?php echo $hc ?></h3>
+        <table class="styled-table">
+          <tr>
+            <th>Vaccine Name</th>
+            <th>Batch No</th>
+            <th>Number of Pending appointment</th>
+          </tr>
 
-        <?php
-        $conn = mysqli_connect("localhost", "root", "", "getvax");
-        if ($conn->connect_error) {
-          die("Connection Failed: " . $conn->connect_error);
-        }
-
-        $sql = "SELECT vaccineName, batchNo,numberOfPendingAppointment FROM vaccine, batch WHERE batch.vaccineID = vaccine.vaccineID AND centreName ='$hc'";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-          while ($row = $result->fetch_assoc()) {
-            echo "<tr><td>" . $row["vaccineName"] . "</td><td>" . $row["batchNo"] . "</td><td>" . $row["numberOfPendingAppointment"] . "</td></tr>";
+          <?php
+          $conn = mysqli_connect("localhost", "root", "", "getvax");
+          if ($conn->connect_error) {
+            die("Connection Failed: " . $conn->connect_error);
           }
-          echo "</table>";
-        } else {
-          echo "0 result";
-        }
-        $conn->close();
-        ?>
-      </table>
 
-      <form method="post">
-        <div class="input-group sm-1" style="width: 60%;">
-          <select class="form-control" name="batchNo">
-            <option disabled selected>-- Select batch number -- </option>
-            <?php
-            $conn = mysqli_connect("localhost", "root", "", "getvax");
-            if ($conn->connect_error) {
-              die("Connection Failed: " . $conn->connect_error);
+          $sql = "SELECT vaccineName, batchNo,numberOfPendingAppointment FROM vaccine, batch WHERE batch.vaccineID = vaccine.vaccineID AND centreName ='$hc'";
+          $result = $conn->query($sql);
+
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              echo "<tr><td>" . $row["vaccineName"] . "</td><td>" . $row["batchNo"] . "</td><td>" . $row["numberOfPendingAppointment"] . "</td></tr>";
             }
-            $sql = "SELECT * From batch WHERE centreName = '$hc'";
-            $result = $conn->query($sql);
-
-            while ($data = mysqli_fetch_array($result)) {
-              echo "<option value='" . $data['batchNo'] . "'>" . $data['batchNo'] . "</option>";  // displaying data in option menu
-            }
-            ?>
-          </select>
-          <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2"> Find </button>
-        </div>
-      </form>
-
-
-      <!--Healthcare Centre Batch Information Table-->
-      <h2>Batch Information</h2>
-      <table style="width:100%; border-spacing:0; text-align: center;">
-        <tr>
-          <th>Expiry Date</th>
-          <th>Number of Pending Appointment</th>
-          <th>Quantity Available</th>
-          <th>Quantity Administered</th>
-        </tr>
-        <?php
-        $conn = mysqli_connect("localhost", "root", "", "getvax");
-        if ($conn->connect_error) {
-          die("Connection Failed: " . $conn->connect_error);
-        }
-        if (isset($_POST['submit'])) {
-          if (!empty($_POST['batchNo'])) {
-            $selected = $_POST['batchNo'];
+            echo "</table>";
+          } else {
+            echo "0 result";
           }
-        }
-        error_reporting(0); //Disable showing null error
-        $sql = "SELECT expiryDate, numberOfPendingAppointment, quantityAvailable, quantityAdministered FROM batch WHERE batchNo = '$selected'";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-          while ($row = $result->fetch_assoc()) {
-            echo "<tr><td>" . $row["expiryDate"] . "</td><td>" . $row["numberOfPendingAppointment"] . "</td><td>" . $row["quantityAvailable"] . "</td><td>" . $row["quantityAdministered"] . "</td></tr>";
-          }
-          echo "</table>";
-        }
-        $conn->close();
-        ?>
-      </table>
+          $conn->close();
+          ?>
+        </table>
 
-      <!--Healthcare Centre Vaccine Batch Information Table-->
-      </table>
-      <h2>Vaccination List</h2>
-      <table style="width:90%; border-spacing:0;">
-        <tr>
-          <th>Vaccination ID</th>
-          <th>Appointment Date</th>
-          <th>Status</th>
-          <th>Remark</th>
-        </tr>
-        <?php
-        $conn = mysqli_connect("localhost", "root", "", "getvax");
-        if ($conn->connect_error) {
-          die("Connection Failed: " . $conn->connect_error);
-        }
-        $sql = "SELECT * FROM vaccination WHERE batchNo = '$selected'";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-          while ($row = $result->fetch_assoc()) {
-            echo "<tr><td>" . $row["vaccinationID"] . "</td><td>" . $row["appointmentDate"] . "</td><td>" . $row["status_s"] . "</td><td>" . $row["remark"] . "</td></tr>";
+        <form method="post">
+          <div class="input-group sm-1" style="width: 60%;">
+            <select class="form-control" name="batchNo">
+              <option disabled selected>-- Select batch number -- </option>
+              <?php
+              $conn = mysqli_connect("localhost", "root", "", "getvax");
+              if ($conn->connect_error) {
+                die("Connection Failed: " . $conn->connect_error);
+              }
+              $sql = "SELECT * From batch WHERE centreName = '$hc'";
+              $result = $conn->query($sql);
+
+              while ($data = mysqli_fetch_array($result)) {
+                echo "<option value='" . $data['batchNo'] . "'>" . $data['batchNo'] . "</option>";  // displaying data in option menu
+              }
+              ?>
+            </select>
+            <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2"> Find </button>
+          </div>
+        </form>
+
+
+        <!--Healthcare Centre Batch Information Table-->
+        <h2>Batch Information</h2>
+        <table class="styled-table" style="width:80%; border-spacing:0; text-align: center;">
+          <tr>
+            <th>Expiry Date</th>
+            <th>Number of Pending Appointment</th>
+            <th>Quantity Available</th>
+            <th>Quantity Administered</th>
+          </tr>
+          <?php
+          $conn = mysqli_connect("localhost", "root", "", "getvax");
+          if ($conn->connect_error) {
+            die("Connection Failed: " . $conn->connect_error);
           }
-          echo "</table>";
-        }
-        $conn->close();
-        ?>
-      </table>
-      <form method="post">
-        <div class="input-group sm-1" style="width: 100%;">
-          <select class="form-control" name="vaccinationID">
-            <option disabled selected>-- Select vaccinationID: --</option>
-            <?php
-            $conn = mysqli_connect("localhost", "root", "", "getvax");
-            if ($conn->connect_error) {
-              die("Connection Failed: " . $conn->connect_error);
+          if (isset($_POST['submit'])) {
+            if (!empty($_POST['batchNo'])) {
+              $selected = $_POST['batchNo'];
             }
-            $sql = "SELECT * From vaccination WHERE batchNo = '$selected'";
-            $result = $conn->query($sql);
-            while ($data = mysqli_fetch_array($result)) {
-              echo "<option value='" . $data['vaccinationID'] . "'>" . $data['vaccinationID'] . "</option>";  // displaying data in option menu
+          }
+          error_reporting(0); //Disable showing null error
+          $sql = "SELECT expiryDate, numberOfPendingAppointment, quantityAvailable, quantityAdministered FROM batch WHERE batchNo = '$selected'";
+          $result = $conn->query($sql);
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              echo "<tr><td>" . $row["expiryDate"] . "</td><td>" . $row["numberOfPendingAppointment"] . "</td><td>" . $row["quantityAvailable"] . "</td><td>" . $row["quantityAdministered"] . "</td></tr>";
             }
-            $conn->close();
-            ?>
-          </select>
-          <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2" formaction="confirmVaccineAppointment.php">Confirm Vaccination
-            Appointment</button>
-          <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2" formaction="recordVaccineAdministered.php">Record Vaccination
-            Administered</button>
-        </div>
-      </form>
+            echo "</table>";
+          }
+          $conn->close();
+          ?>
+        </table>
+
+        <!--Healthcare Centre Vaccine Batch Information Table-->
+        </table>
+        <h2>Vaccination List</h2>
+        <table class="styled-table" style="width:80%; border-spacing:0;">
+          <tr>
+            <th>Vaccination ID</th>
+            <th>Appointment Date</th>
+            <th>Status</th>
+            <th>Remark</th>
+          </tr>
+          <?php
+          $conn = mysqli_connect("localhost", "root", "", "getvax");
+          if ($conn->connect_error) {
+            die("Connection Failed: " . $conn->connect_error);
+          }
+          $sql = "SELECT * FROM vaccination WHERE batchNo = '$selected'";
+          $result = $conn->query($sql);
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              echo "<tr><td>" . $row["vaccinationID"] . "</td><td>" . $row["appointmentDate"] . "</td><td>" . $row["status_s"] . "</td><td>" . $row["remark"] . "</td></tr>";
+            }
+            echo "</table>";
+          }
+          $conn->close();
+          ?>
+        </table>
+        <form method="post">
+          <div class="input-group sm-1" style="width: 100%;">
+            <select class="form-control" name="vaccinationID">
+              <option disabled selected>-- Select vaccinationID: --</option>
+              <?php
+              $conn = mysqli_connect("localhost", "root", "", "getvax");
+              if ($conn->connect_error) {
+                die("Connection Failed: " . $conn->connect_error);
+              }
+              $sql = "SELECT * From vaccination WHERE batchNo = '$selected'";
+              $result = $conn->query($sql);
+              while ($data = mysqli_fetch_array($result)) {
+                echo "<option value='" . $data['vaccinationID'] . "'>" . $data['vaccinationID'] . "</option>";  // displaying data in option menu
+              }
+              $conn->close();
+              ?>
+            </select>
+            <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2" formaction="confirmVaccineAppointment.php">Confirm Vaccination
+              Appointment</button>
+            <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2" formaction="recordVaccineAdministered.php">Record Vaccination
+              Administered</button>
+          </div>
+        </form>
     </div>
   </div>
   </div>
 
 </body>
+<footer>
+  <div class="container p-1">
+    <div class="row">
+      <div style="margin-top: 40px;" class="col-xl-6 col-md-12 mb-4">
+        <h5 style="font-size: 25px; color:white;">GetVax</h5>
+        <p>
+          GetVax is an official page for requesting vaccination appointments,
+          and it allows people to select the vaccine of their choice. Many clinics and hospital
+          had join GetVax in order to get everyone who have not been vaccinated yet.
+        </p>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-4" style="margin-left:260px; margin-top: 40px;">
+        <h4 class="mb-1 text-white">Opening Hours</h5>
+          <table class="table" style="border-color: white; color:whitesmoke;">
+            <tbody>
+              <tr>
+                <td>Mon - Fri:</td>
+                <td>8am - 9pm</td>
+              </tr>
+              <tr>
+                <td>Sat - Sun:</td>
+                <td>8am - 1am</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2021 Copyright:
+    <a class="text-white" style="text-decoration: none;">GetVax.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- End of .container -->
 
 </html>

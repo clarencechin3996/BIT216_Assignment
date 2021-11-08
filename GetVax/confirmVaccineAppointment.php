@@ -46,6 +46,23 @@ $_SESSION["BATCHNO"] = $batchNo;
     <link rel="stylesheet" type="text/css" href="style/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+    <style>
+        h1 {
+            font-weight: bold;
+        }
+
+        table {
+            font-size: 16px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        footer {
+            background-color: #008080;
+            color: whitesmoke;
+            font-size: 13px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+    </style>
 </head>
 
 <body>
@@ -108,15 +125,50 @@ $_SESSION["BATCHNO"] = $batchNo;
                 </tbody>
             </table>
             <form method="post" action="updateVaccineAppointment.php">
-                <div class="input-group mb-3">
+                <div class="input-group mb-3" style="margin-top: 35px;">
                     <button class="btn btn-outline-secondary" type="submit" name="confirm">Confirm</button>
                     <button class="btn btn-outline-secondary" type="submit" name="reject">Reject</button>
-                    <input type="text" name="REJECT" class="form-control" aria-label="Text input with dropdown button">
+                    <input type="text" name="REJECT" class="form-control" placeholder="[REJECT]: Enter any remarks">
                 </div>
             </form>
         </div>
 
     </div>
 </body>
+<footer>
+    <div class="container p-1">
+        <div class="row">
+            <div style="margin-top: 40px;" class="col-xl-6 col-md-12 mb-4">
+                <h5 style="font-size: 25px; color:white;">GetVax</h5>
+                <p>
+                    GetVax is an official page for requesting vaccination appointments,
+                    and it allows people to select the vaccine of their choice. Many clinics and hospital
+                    had join GetVax in order to get everyone who have not been vaccinated yet.
+                </p>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" style="margin-left:260px; margin-top: 40px;">
+                <h4 class="mb-1 text-white">Opening Hours</h5>
+                    <table class="table" style="border-color: white; color:whitesmoke;">
+                        <tbody>
+                            <tr>
+                                <td>Mon - Fri:</td>
+                                <td>8am - 9pm</td>
+                            </tr>
+                            <tr>
+                                <td>Sat - Sun:</td>
+                                <td>8am - 1am</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2021 Copyright:
+        <a class="text-white" style="text-decoration: none;">GetVax.com</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- End of .container -->
 
 </html>

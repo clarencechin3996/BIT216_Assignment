@@ -22,12 +22,12 @@ if (isset($_POST['confirm'])) {
                 echo '</script>';
             } else if($row["status_s"] === "REJECTED"){
                 echo '<script type="text/javascript">';
-                echo 'alert("Appointment cannot be confirm, it had already REJECTED!");';
+                echo 'alert("Appointment cannot be confirm, it has already been REJECTED!");';
                 echo 'window.location = "vaccineBatchInfo.php";';
                 echo '</script>';
             }else if($row["status_s"] === "ADMINISTERED"){
                 echo '<script type="text/javascript">';
-                echo 'alert("Appointment cannot be confirm, it had already ADMINISTERED!");';
+                echo 'alert("Appointment cannot be confirm, it has already been ADMINISTERED!");';
                 echo 'window.location = "vaccineBatchInfo.php";';
                 echo '</script>';
             }else {
@@ -61,17 +61,17 @@ if (isset($_POST['confirm'])) {
         while ($row = $result->fetch_assoc()) {
             if ($row["status_s"] === "REJECTED") {
                 echo '<script type="text/javascript">';
-                echo 'alert("Appointment had already been REJECTED!");';
+                echo 'alert("Appointment has already been REJECTED!");';
                 echo 'window.location = "vaccineBatchInfo.php";';
                 echo '</script>';
             } else if($row["status_s"] === "CONFIRMED"){
                 echo '<script type="text/javascript">';
-                echo 'alert("Appointment cannot be rejected, it had already CONFIRMED!");';
+                echo 'alert("Appointment cannot be rejected, it has already been CONFIRMED!");';
                 echo 'window.location = "vaccineBatchInfo.php";';
                 echo '</script>';
             }else if($row["status_s"] === "ADMINISTERED"){
                 echo '<script type="text/javascript">';
-                echo 'alert("Appointment cannot be rejected, it had already ADMINISTERED!");';
+                echo 'alert("Appointment cannot be rejected, it has already been ADMINISTERED!");';
                 echo 'window.location = "vaccineBatchInfo.php";';
                 echo '</script>';
             }else {
@@ -99,12 +99,12 @@ if (isset($_POST['confirm'])) {
         while ($row = $result->fetch_assoc()) {
             if ($row["status_s"] === "ADMINISTERED") {
                 echo '<script type="text/javascript">';
-                echo 'alert("Appointment had already been administered!");';
+                echo 'alert("Appointment has already been administered!");';
                 echo 'window.location = "vaccineBatchInfo.php";';
                 echo '</script>';
             } else if($row["status_s"] === "REJECTED"){
                 echo '<script type="text/javascript">';
-                echo 'alert("Appointment cannot be record, it had already REJECTED!");';
+                echo 'alert("Appointment cannot be record, it has already been REJECTED!");';
                 echo 'window.location = "vaccineBatchInfo.php";';
                 echo '</script>';
             }else {
