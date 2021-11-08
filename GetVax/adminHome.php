@@ -23,6 +23,14 @@ $name = $_SESSION["username"];
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
   <link rel="stylesheet" type="text/css" href="style/style.css" />
+  <style>
+    footer {
+      background-color: #008080;
+      color: whitesmoke;
+      font-size: 13px;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+  </style>
 </head>
 
 
@@ -75,7 +83,7 @@ $name = $_SESSION["username"];
                 <small class="text-muted">Last updated 3 days ago</small>
               </div>
             </div>
-          </div>
+          </div><!-- End of card 1 -->
           <div class="col">
             <div class="card h-100">
               <img src="style/AZ.jpg" class="card-img-top" alt="...">
@@ -88,7 +96,7 @@ $name = $_SESSION["username"];
                 <small class="text-muted">Last updated 1 week ago</small>
               </div>
             </div>
-          </div>
+          </div><!-- End of card 2 -->
           <div class="col">
             <div class="card h-100">
               <img src="style/aware.jpg" class="card-img-top" alt="...">
@@ -102,15 +110,48 @@ $name = $_SESSION["username"];
                 <small class="text-muted">Last updated 2 weeks ago</small>
               </div>
             </div>
-          </div>
-        </div>
+          </div><!-- End of card 3 -->
 
+        </div>
       </div>
     </div>
-
-
   </div>
-
 </body>
+
+<footer>
+  <div class="container p-1">
+    <div class="row">
+      <div style="margin-top: 40px;" class="col-xl-6 col-md-12 mb-4">
+        <h5 style="font-size: 25px; color:white;">GetVax</h5>
+        <p>
+          GetVax is an official page for requesting vaccination appointments,
+          and it allows people to select the vaccine of their choice. Many clinics and hospital
+          had join GetVax in order to get everyone who have not been vaccinated yet.
+        </p>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-4" style="margin-left:260px; margin-top: 40px;">
+        <h4 class="mb-1 text-white">Opening Hours</h5>
+          <table class="table" style="border-color: white; color:whitesmoke;">
+            <tbody>
+              <tr>
+                <td>Mon - Fri:</td>
+                <td>8am - 9pm</td>
+              </tr>
+              <tr>
+                <td>Sat - Sun:</td>
+                <td>8am - 1am</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2021 Copyright:
+    <a class="text-white" style="text-decoration: none;">GetVax.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- End of .container -->
 
 </html>
