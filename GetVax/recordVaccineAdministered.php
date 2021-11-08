@@ -100,6 +100,7 @@ $_SESSION["BATCHNO"] = $batchNo;
                                 echo "<td>" . $row["manufacturer"] . "</td><td>" . $row["vaccineName"] . "</td>";
                             }
                         }
+                        $conn->close();
                         ?>
                     </tr>
                 </tbody>
