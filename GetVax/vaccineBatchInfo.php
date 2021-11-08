@@ -24,7 +24,6 @@ $name = $_SESSION["username"];
   <style>
     .styled-table {
       border-collapse: collapse;
-      margin: 25px 0;
       font-size: 1.04em;
       font-family: sans-serif;
       min-width: 400px;
@@ -40,6 +39,12 @@ $name = $_SESSION["username"];
     .styled-table th,
     .styled-table td {
       padding: 12px 15px;
+    }
+
+    .styled-table td {
+      background: #d8f3dc;
+      color: black;
+      font-weight: bold;
     }
 
     .styled-table tr {
@@ -104,7 +109,7 @@ $name = $_SESSION["username"];
       }
       ?>
       <h2>Healthcare Centre:<?php echo $hc ?></h3>
-        <table class="styled-table">
+        <table class="styled-table" style="margin-bottom: 30px;">
           <tr>
             <th>Vaccine Name</th>
             <th>Batch No</th>
@@ -155,8 +160,8 @@ $name = $_SESSION["username"];
 
 
         <!--Healthcare Centre Batch Information Table-->
-        <h2>Batch Information</h2>
-        <table class="styled-table" style="width:80%; border-spacing:0; text-align: center;">
+        <h2 style="margin-top: 20px;">Batch Information</h2>
+        <table class="styled-table" style="width:80%; border-spacing:0; margin-bottom: 30px;">
           <tr>
             <th>Expiry Date</th>
             <th>Number of Pending Appointment</th>
@@ -189,7 +194,7 @@ $name = $_SESSION["username"];
         <!--Healthcare Centre Vaccine Batch Information Table-->
         </table>
         <h2>Vaccination List</h2>
-        <table class="styled-table" style="width:80%; border-spacing:0;">
+        <table class="styled-table" style="width:80%; border-spacing:0; margin-bottom:20px;">
           <tr>
             <th>Vaccination ID</th>
             <th>Appointment Date</th>
@@ -243,28 +248,28 @@ $name = $_SESSION["username"];
 <footer>
   <div class="container p-1">
     <div class="row">
-      <div style="margin-top: 40px;" class="col-xl-6 col-md-12 mb-4">
-        <h5 style="font-size: 25px; color:white;">GetVax</h5>
+      <div style="margin-top: 20px;" class="col-xl-6 col-md-12 mb-4">
+        <h2 style="font-size: 30px; color:white;">GetVax</h2>
         <p>
           GetVax is an official page for requesting vaccination appointments,
-          and it allows people to select the vaccine of their choice. Many clinics and hospital
+          and it allows to select the vaccine of their choice. Many clinics and hospital
           had join GetVax in order to get everyone who have not been vaccinated yet.
         </p>
       </div>
-      <div class="col-lg-3 col-md-6 mb-4" style="margin-left:260px; margin-top: 40px;">
-        <h4 class="mb-1 text-white">Opening Hours</h5>
-          <table class="table" style="border-color: white; color:whitesmoke;">
-            <tbody>
-              <tr>
-                <td>Mon - Fri:</td>
-                <td>8am - 9pm</td>
-              </tr>
-              <tr>
-                <td>Sat - Sun:</td>
-                <td>8am - 1am</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="col-lg-3 col-md-6 mb-4" style="margin-left:260px; margin-top: 25px;">
+        <h3 class="mb-1 text-white">Opening Hours</h3>
+        <table class="table" style="border-color: white; color:whitesmoke;">
+          <tbody>
+            <tr>
+              <td>Mon - Fri:</td>
+              <td>8am - 9pm</td>
+            </tr>
+            <tr>
+              <td>Sat - Sun:</td>
+              <td>8am - 1am</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
