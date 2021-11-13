@@ -95,7 +95,7 @@ $name = $_SESSION["username"];
       </div>
     </nav>
     <div id="site_content">
-      <h2 style="text-align: center;">Vaccine Batch Information</h2>
+      <h2 style="text-align: center; font-size:26px;">Vaccine Batch Information</h2>
       <?php
       $conn = mysqli_connect("localhost", "root", "", "getvax");
       if ($conn->connect_error) {

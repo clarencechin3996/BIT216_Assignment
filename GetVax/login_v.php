@@ -16,7 +16,6 @@ if(isset($_POST))
       header("refresh:1; url=adminHome.php");
       echo '<script>alert("Successfully Logged in as Healthcare Administrator")</script>';
 
-
     }
 
     else{
