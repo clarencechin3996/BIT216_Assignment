@@ -102,6 +102,11 @@ if (isset($_POST['confirm'])) {
                 echo 'alert("Appointment has already been administered!");';
                 echo 'window.location = "vaccineBatchInfo.php";';
                 echo '</script>';
+            }else if($row["status_s"] === "PENDING"){
+                echo '<script type="text/javascript">';
+                echo 'alert("Appointment cannot be record, it needs to be CONFIRMED!");';
+                echo 'window.location = "vaccineBatchInfo.php";';
+                echo '</script>';
             } else if($row["status_s"] === "REJECTED"){
                 echo '<script type="text/javascript">';
                 echo 'alert("Appointment cannot be record, it has already been REJECTED!");';
