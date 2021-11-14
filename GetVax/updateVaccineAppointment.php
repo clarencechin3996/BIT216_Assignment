@@ -33,7 +33,7 @@ if (isset($_POST['confirm'])) {
             }else {
                 $sql = "UPDATE vaccination SET status_s = 'CONFIRMED' WHERE vaccinationID = '$vac'";
                 if ($conn->query($sql) === TRUE) {
-                    $sql = "UPDATE batch SET numberOfPendingAppointment = numberOfPendingAppointment + 1 WHERE batchNo = '$batNo'";
+                    $sql = "UPDATE batch SET numberOfPendingAppointment = numberOfPendingAppointment - 1 WHERE batchNo = '$batNo'";
                     $conn->query($sql);
                 } else {
                     echo "Error updating record: " . $conn->error;
@@ -115,7 +115,7 @@ if (isset($_POST['confirm'])) {
             }else {
                 $sql = "UPDATE vaccination SET status_s = 'ADMINISTERED', remark = '$remark_record' WHERE vaccinationID = '$vac'";
                 if ($conn->query($sql) === TRUE) {
-                    $sql = "UPDATE batch SET quantityAdministered = quantityAdministered + 1, quantityAvailable = quantityAvailable - 1, numberOfPendingAppointment = numberOfPendingAppointment - 1  WHERE batchNo = '$batNo'";
+                    $sql = "UPDATE batch SET quantityAdministered = quantityAdministered + 1, quantityAvailable = quantityAvailable - 1 WHERE batchNo = '$batNo'";
                     $conn->query($sql);
                 } else {
                     echo "Error updating record: " . $conn->error;
