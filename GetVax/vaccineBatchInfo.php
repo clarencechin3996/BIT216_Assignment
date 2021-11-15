@@ -42,7 +42,7 @@ $name = $_SESSION["username"];
     }
 
     .styled-table td {
-      background: #d8f3dc;
+      background: #eafaf1 ;
       color: black;
       font-weight: bold;
     }
