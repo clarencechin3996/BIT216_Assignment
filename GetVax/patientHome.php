@@ -1,5 +1,6 @@
 <?php
 session_start();
+$name = $_SESSION["username"];
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -11,6 +12,8 @@ session_start();
     <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
     <link rel="stylesheet" type="text/css" href="style/style.css" />
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -21,6 +24,14 @@ session_start();
     <meta name="keywords" content="website keywords, website keywords" />
     <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
     <link rel="stylesheet" type="text/css" href="style/style.css" />
+    <style>
+        footer {
+            background-color: #008080;
+            color: whitesmoke;
+            font-size: 13px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+    </style>
 </head>
 
 
@@ -43,11 +54,13 @@ session_start();
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="homePatient.php" style="font-weight: bold;">Home</a>
+                            <a class="nav-link active" aria-current="page" href="patientHome.php" style="font-weight: bold;">Home</a>
                         </li>
+
                         <li class="nav-item" style="margin-left: 20px;">
-                            <a class="nav-link" href="requestVaccinationAppointment.html">Vaccination Appointment</a>
+                            <a class="nav-link" href="requestVaccinationAppointment.php">Vaccination Appointment</a>
                         </li>
+
                     </ul>
                     <span class="navbar-text" style="color: black;">
                         Welcome <?php echo $_SESSION["username"] ?><a href="login.html" style="text-decoration: none; margin-right: 30px;"> | Log Out</a>
@@ -110,5 +123,66 @@ session_start();
     </div>
 
 </body>
+<footer>
+    <div class="container p-1">
+        <div class="row">
+            <div style="margin-top: 20px;" class="col-xl-6 col-md-12 mb-4">
+                <h2 style="font-size: 30px; color:white;">GetVax</h2>
+                <p>
+                    GetVax is an official page for requesting vaccination appointments,
+                    and it allows to select the vaccine of their choice. Many clinics and hospital
+                    had join GetVax in order to get everyone who have not been vaccinated yet.
+                </p>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" style="margin-left:260px; margin-top: 25px;">
+                <h3 class="mb-1 text-white">Opening Hours</h3>
+                <table class="table" style="border-color: white; color:whitesmoke;">
+                    <tbody>
+                        <tr>
+                            <td>Mon - Fri:</td>
+                            <td>8am - 9pm</td>
+                        </tr>
+                        <tr>
+                            <td>Sat - Sun:</td>
+                            <td>8am - 1am</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2021 Copyright:
+        <a class="text-white" style="text-decoration: none;">GetVax.com</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- End of .container -->
 
 </html>
+<script>
+    $(document).ready(function() {
+        function load_data(query) {
+            $.ajax({
+                url: "fetch.php",
+                method: "POST",
+                data: {
+                    query: query
+                },
+                success: function(data) {
+                    $('#result').html(data);
+                }
+            });
+        }
+
+        $('#search_text').keyup(function() {
+            var search = $(this).val();
+            if (search != '') {
+                load_data(search);
+            } else {
+                load_data();
+            }
+        });
+
+    });
+</script>

@@ -85,8 +85,14 @@ $name = $_SESSION["username"];
               <a class="nav-link " aria-current="page" href="adminHome.php">Home</a>
             </li>
             <li class="nav-item" style="margin-left: 20px;">
-              <a class="nav-link active" href="vaccineBatchInfor.php" style="font-weight: bold;">Vaccine Batch Information</a>
-            </li>
+                <a class="nav-link" href="recordVaccinationBatch.php">Record Vaccination Batch</a>
+              </li>
+              <li class="nav-item" style="margin-left: 20px;">
+                <a class="nav-link active" href="vaccineBatchInfo.php">Vaccine Batch Information</a>
+              </li>
+              <li class="nav-item" style="margin-left: 20px;">
+                <a class="nav-link" href="recordVaccineData.php">New Vaccine Information</a>
+              </li>
           </ul>
           <span class="navbar-text" style="color: black;">
             Welcome <?php echo $name ?><a href="login.html" style="text-decoration: none; margin-right: 30px;"> | Log Out</a>

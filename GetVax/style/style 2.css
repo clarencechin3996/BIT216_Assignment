@@ -1,0 +1,124 @@
+html
+{ height: 100%;}
+
+*
+{ margin: 0;
+  padding: 0;}
+
+body
+{ font: normal .80em 'trebuchet ms', arial, sans-serif;
+  background: #bedce0;
+  color: #5D5D5D;
+}
+
+p
+{ padding: 0 0 20px 0;
+  line-height: 1.7em;}
+
+h1, h2, h3
+{ font: normal 175% 'century gothic', arial, sans-serif;
+  color: #43423F;
+  margin: 0 0 15px 0;
+  padding: 15px 0 5px 0;}
+
+h2
+{ font: bold 175% 'century gothic', arial, sans-serif;
+  color: #111111;}
+
+h3
+{ font: normal 165% 'century gothic', arial, sans-serif;}
+
+a:hover
+{ text-decoration: none;
+  color: #5D5D5D;}
+
+.left
+{ float: left;
+  width: auto;
+  margin-right: 10px;}
+
+.right
+{ float: right; 
+  width: auto;
+  margin-left: 10px;}
+
+.center
+{ display: block;
+  text-align: center;
+  margin: 20px auto;}
+
+
+ul
+{ margin: 2px 0 22px 17px;}
+
+ul li
+{ margin: 0 0 6px 0; 
+  padding: 0 0 4px 5px;}
+
+ol
+{ margin: 8px 0 22px 20px;}
+
+ol li
+{ margin: 0 0 11px 0;}
+
+#main, #menubar, #content_header, #site_content
+{ margin-left: auto; 
+  margin-right: auto;
+  margin-top: auto;}
+
+#main
+{ padding-bottom: 20px;}
+
+#header
+{ background: url(medical.jpg);
+  background-size: 1750px ;
+  height: 160px;
+}
+
+#logo_text 
+{ position: absolute; 
+  top: 10px;
+  left: 0;}
+
+#logo_text h1, #logo_text h2
+{ font: normal 320% 'century gothic', arial, sans-serif;
+  border-bottom: 0;
+  text-transform: none;
+  margin: 0 0 0 9px;}
+
+#logo_text h1, #logo_text h1 a, #logo_text h1 a:hover 
+{ padding: 22px 0 0 20px;
+  color: #FFF;
+  letter-spacing: 0.1em;
+  text-decoration: none;}
+
+#logo_text h1 a .logo_colour
+{ color: #ECEF01;}
+
+#logo_text h2
+{ font-size: 120%;
+  padding: 4px 0 0 42px;
+  color: #A8AA94;}
+
+#site_content
+{ width: 1000px;
+  overflow: hidden;
+  margin: 50px auto 50px auto;
+  padding: 0 20px 20px 40px;
+  background: rgb(255, 255, 255);
+  border-radius: 15px;
+  border-left: 1px solid #ECECE0;
+  border-right: 1px solid #ECECE0;
+} 
+
+#content
+{ text-align: left;
+  width: auto;
+  padding: 0;}
+
+#content ul
+{ margin: 2px 0 22px 0px;}
+  
+
+
+

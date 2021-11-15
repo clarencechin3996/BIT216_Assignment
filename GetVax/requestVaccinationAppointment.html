@@ -1,0 +1,484 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  <title>GetVax - Record New Vaccination Batch</title>
+  <title>GetVax - Request Vaccination Appointment</title>
+  <meta name="description" content="website description" />
+  <meta name="keywords" content="website keywords, website keywords" />
+  <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+  <script type="text/javascript" src="style/class.js">
+  </script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    var a;
+    function show(){
+      if (a==1){
+        document.getElementById("vaccineTable").style.display="none";
+        return a=0;
+      }
+      else {
+        document.getElementById("vaccineTable").style.display="block";
+        return a=1;
+      }
+    }
+
+    $(document).ready(function(){
+      $("#vaccineList").on('change',function(){
+        $(".data").hide();
+        $("#" + $(this).val()).fadeIn(700);
+    }).change();
+  });
+
+
+  $(document).ready(function(){
+    $("#healthcareCenters").on('change',function(){
+      $(".bdata").hide();
+      $("#" + $(this).val()).fadeIn(700);
+  }).change();
+});
+
+$(document).ready(function(){
+  $("#availableBatches").on('change',function(){
+    $(".vdata").hide();
+    $("#" + $(this).val()).fadeIn(700);
+}).change();
+});
+
+  function submit() {
+    alert("Appointment Created!");
+  }
+
+
+  </script>
+  <style>
+    .btn2 {
+      border: none;
+      outline-color: none;
+      height: 50px;
+      width: 100%;
+      background-color: black;
+      color: white;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .btn2:hover {
+      background: white;
+      border: 1px solid;
+      color: black;
+    }
+
+    .btn{
+      margin-top: 20px;
+      margin-bottom: 20px;
+      margin-left: 50px;
+      width: 261px;
+
+    }
+
+    .table{
+      width:700px;
+      margin-top: 20px;
+    }
+
+    .form-select{
+      width:492px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+
+
+  </style>
+</head>
+
+<body>
+  <div id="main">
+    <div id="header">
+      <div id="logo_text">
+        <!-- class="logo_colour", allows you to change the colour of the text -->
+        <h1><a href="homeAdministrator.html">Get<span class="logo_colour">Vax</span></a></h1>
+        <h2>Healthcare. Service. Public.</h2>
+      </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="font-size: 20px;">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="homePatient.html" style="font-weight: bold;">Home</a>
+            </li>
+            <li class="nav-item" style="margin-left: 20px;">
+              <a class="nav-link" href="requestVaccinationAppointment.html">Vaccination Appointment</a>
+            </li>
+          </ul>
+          <span class="navbar-text">
+            <a href="login.html" style="text-decoration: none; margin-right: 30px;"> | Log Out</a>
+          </span>
+        </div>
+      </div>
+    </nav>
+    <div id="site_content">
+      <!-- insert the page content here -->
+      <h1>Request Vaccination Appointment</h1>
+
+      <h4>You are logged in as: Yoosuf<h4>
+      <div class="form-row">
+        <div class="col-lg-7">
+            <label for="chooseVaccine">View Available Vaccines:</label>
+              <button type="button" id="showhide" class="btn btn-secondary" onclick="show()" >Show/Hide Table</button>
+        </div>
+      </div>
+
+      <div id="vaccineTable" style="display: none;">
+        <table class="table table-striped table table-bordered">
+          <tr>
+            <th>Manufacturer</th>
+            <th>Vaccine Name</th>
+          </tr>
+          <tr>
+            <td>BioNTech</td>
+            <td>Pfizer</td>
+          </tr>
+          <tr>
+            <td>Oxford</td>
+            <td>AstraZeneca</td>
+          </tr>
+          <tr>
+            <td>Moderna</td>
+            <td>Moderna</td>
+          </tr>
+          <tr>
+            <td>Sinovac</td>
+            <td>CoronaVac</td>
+          </tr>
+          <tr>
+            <td>Gamaleya Research Institute,<br> Acellena Contract Drug Research and Development</td>
+            <td>Sputnik V</td>
+          </tr>
+      </div>
+
+
+
+      <div id="healthcareCentersTable" style="display: none;">
+        <table class="table table-striped table table-bordered">
+
+        </table>
+      </div>
+
+        <div class="wrapper">
+          <div class="menu">
+          <label for="chooseVaccine">Select Required Vaccine:</label>
+          <select id="vaccineList" name="vaccineList" class="form-select" aria-label="Default select example">
+            <option value="None" selected>-</option>
+            <option value="AstraZeneca">AstraZeneca</option>
+            <option value="Pfizer">Pfizer</option>
+            <option value="Moderna">Moderna</option>
+            <option value="SputnikV">Sputnik V</option>
+            <option value="Sinovac">CoronaVac</option>
+          </select>
+        </div>
+
+      <div class="vaccineAvailableCenters">
+        <div id="AstraZeneca" class="data">
+          <h5>This vaccine is available in the following healthcare centers:</h5>
+          <table class="table table-striped table table-bordered">
+            <tr>
+              <th>Name</th>
+              <th>Address</th>
+            </tr>
+            <tr>
+              <td>Homage Home Care Malaysia</td>
+              <td>#17-103, Plaza Equatorial, Jln Sultan Ismail,<br> Kuala Lumpur, 50250</td>
+            </tr>
+          </table>
+        </div>
+        <div id="Pfizer" class="data">
+          <h5>This vaccine is available in the following healthcare centers:</h5>
+          <table class="table table-striped table table-bordered">
+            <tr>
+              <th>Name</th>
+              <th>Address</th>
+            </tr>
+            <tr>
+              <td>Park City Medical Center</td>
+              <td>No. 2, Jalan Intisari Perdana, Desa Parkcity,<br> 52200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+            </tr>
+            <tr>
+              <td>Homage Home Care Malaysia</td>
+              <td>#17-103, Plaza Equatorial, Jln Sultan Ismail,<br> Kuala Lumpur, 50250</td>
+            </tr>
+            <tr>
+              <td>UiTM Private Specialist Center</td>
+              <td>UiTM Sg Buloh Campus, Jalan Hospital,<br> 47000 Sungai Buloh, Selangor</td>
+            </tr>
+            <tr>
+              <td>Pantai Hospital Kuala Lumpur</td>
+              <td>Address: 8, Jalan Bukit Pantai, Bangsar,<br> 59100 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+            </tr>
+
+          </table>
+        </div>
+        <div id="Moderna" class="data">
+          <h5>This vaccine is available in the following healthcare centers:</h5>
+          <table class="table table-striped table table-bordered">
+            <tr>
+              <th>Name</th>
+              <th>Address</th>
+            </tr>
+            <tr>
+              <td>Park City Medical Center</td>
+              <td>No. 2, Jalan Intisari Perdana, Desa Parkcity,<br> 52200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+            </tr>
+            <tr>
+              <td>HBM Family Clinic</td>
+              <td>A-G-1, Glomac Damansara, Jalan Damansara, Taman Tun Dr Ismail,<br> 60000 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+            </tr>
+            <tr>
+              <td>UiTM Private Specialist Center</td>
+              <td>UiTM Sg Buloh Campus, Jalan Hospital,<br> 47000 Sungai Buloh, Selangor</td>
+            </tr>
+            <tr>
+              <td>Pantai Hospital Kuala Lumpur</td>
+              <td>Address: 8, Jalan Bukit Pantai, Bangsar,<br> 59100 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+            </tr>
+          </table>
+        </div>
+        <div id="SputnikV" class="data">
+          <h5>This vaccine is available in the following healthcare centers:</h5>
+          <table class="table table-striped table table-bordered">
+            <tr>
+              <th>Name</th>
+              <th>Address</th>
+            </tr>
+            <tr>
+              <td>Homage Home Care Malaysia</td>
+              <td>#17-103, Plaza Equatorial, Jln Sultan Ismail,<br> Kuala Lumpur, 50250</td>
+            </tr>
+            <tr>
+              <td>Pantai Hospital Kuala Lumpur</td>
+              <td>Address: 8, Jalan Bukit Pantai, Bangsar,<br> 59100 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+            </tr>
+            <tr>
+              <td>HSC Medical Center</td>
+              <td>Ground Floor, Menara HSC, 187, Jalan Ampang,<br> 50450 Kuala Lumpur</td>
+            </tr>
+          </table>
+        </div>
+        <div id="Sinovac" class="data">
+          <h5>This vaccine is available in the following healthcare centers:</h5>
+          <table class="table table-striped table table-bordered">
+            <tr>
+              <th>Name</th>
+              <th>Address</th>
+            </tr>
+            <tr>
+              <td>Park City Medical Center</td>
+              <td>No. 2, Jalan Intisari Perdana, Desa Parkcity,<br> 52200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</td>
+            </tr>
+            <tr>
+              <td>UiTM Private Specialist Center</td>
+              <td>UiTM Sg Buloh Campus, Jalan Hospital,<br> 47000 Sungai Buloh, Selangor</td>
+            </tr>
+
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <div class="menu">
+          <label for="healthcareCenters">View a Healthcare Center:</label>
+          <select id="healthcareCenters" name="healthcareCenters" class="form-select" aria-label="Default select example">
+            <option value="None" selected>-</option>
+            <option value="ParkCityMedicalCenter">Park City Medical Center</option>
+            <option value="HomageHomeCareMalaysia">Homage Home Care Malaysia</option>
+            <option value="HBMFamilyClinic">HBM Family Clinic</option>
+            <option value="PantaiHospitalKualaLumpur">Pantai Hospital Kuala Lumpur</option>
+            <option value="HSCMedicalCenter">HSC Medical Center</option>
+          </select>
+        </div>
+
+        <div class="availableBatches">
+          <div id="ParkCityMedicalCenter" class="bdata">
+            <table class="table table-striped table table-bordered">
+              <tr>
+                <th>Batch Number</th>
+                <th>Expiry Date</th>
+                <th>Quantity of doses available</th>
+              </tr>
+              <tr>
+                <td>B1002</td>
+                <td>01/04/2022</td>
+                <td>45</td>
+              </tr>
+            </table>
+          </div>
+          <div id="HomageHomeCareMalaysia" class="bdata">
+            <table class="table table-striped table table-bordered">
+              <tr>
+                <th>Batch Number</th>
+                <th>Expiry Date</th>
+                <th>Quantity of doses available</th>
+              </tr>
+              <tr>
+                <td>B1002</td>
+                <td>02/11/2021</td>
+                <td>3</td>
+              </tr>
+
+            </table>
+          </div>
+          <div id="HBMFamilyClinic" class="bdata">
+            <table class="table table-striped table table-bordered">
+              <tr>
+                <th>Batch Number</th>
+                <th>Expiry Date</th>
+                <th>Quantity of doses available</th>
+              </tr>
+              <tr>
+                <td>B1001</td>
+                <td>01/12/2021</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>B1003</td>
+                <td>01/11/2021</td>
+                <td>12</td>
+              </tr>
+
+            </table>
+          </div>
+          <div id="PantaiHospitalKualaLumpur" class="bdata">
+            <table class="table table-striped table table-bordered">
+              <tr>
+                <th>Batch Number</th>
+                <th>Expiry Date</th>
+                <th>Quantity of doses available</th>
+              </tr>
+              <tr>
+                <td>B1001</td>
+                <td>02/11/2021</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>B1002</td>
+                <td>01/12/2021</td>
+                <td>14</td>
+              </tr>
+              <tr>
+                <td>B1003</td>
+                <td>04/11/2021</td>
+                <td>31</td>
+              </tr>
+            </table>
+          </div>
+          <div id="HSCMedicalCenter" class="bdata">
+            <table class="table table-striped table table-bordered">
+              <tr>
+                <th>Batch Number</th>
+                <th>Expiry Date</th>
+                <th>Quantity of doses available</th>
+              </tr>
+              <tr>
+                <td>B1001</td>
+                <td>12/12/2021</td>
+                <td>12</td>
+              </tr>
+              <tr>
+                <td>B1002</td>
+                <td>02/11/2021</td>
+                <td>22</td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrapper">
+        <div class="menu">
+          <label for="availableBatches">Select Batch Number:</label>
+          <select id="availableBatches" name="availableBatches" class="form-select" aria-label="Default select example">
+            <option value="none" selected>-</option>
+            <option value="B1001">B1001</option>
+            <option value="B1002">B1002</option>
+            <option value="B1003">B1003</option>
+          </select>
+        </div>
+
+        <div class="quantityAvailable">
+          <div id="B1001" class="vdata">
+            <table class="table table-striped table table-bordered">
+              <tr>
+                <th>Expiry Date</th>
+                <th>Quantity of doses available</th>
+              </tr>
+              <tr>
+                <td>12/12/2021</td>
+                <td>2</td>
+              </tr>
+            </table>
+          </div>
+          <div id="B1002" class="vdata">
+            <table class="table table-striped table table-bordered">
+              <tr>
+                <th>Expiry Date</th>
+                <th>Quantity of doses available</th>
+              </tr>
+              <tr>
+                <td>02/11/2021</td>
+                <td>14</td>
+              </tr>
+
+            </table>
+          </div>
+          <div id="B1003" class="vdata">
+            <table class="table table-striped table table-bordered">
+              <tr>
+                <th>Expiry Date</th>
+                <th>Quantity of doses available</th>
+              </tr>
+              <tr>
+                <td>04/11/2021</td>
+                <td>31</td>
+              </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      <div class="form-row">
+        <div class="col-lg-7">
+          <label for="test">Select Appointment Date:</label>
+          <input type="date" placeholder="Expiry Date" class="form-control my-2 p-3">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-lg-7">
+          <button type="submit" class="btn2 mt-3 mb-5" onclick="submit()">Make New Appointment</button>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</body>
+</html>
