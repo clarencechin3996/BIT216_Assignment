@@ -53,14 +53,20 @@ $name = $_SESSION["username"];
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="adminHome.php" style="font-weight: bold;">Home</a>
+              <a class="nav-link active " aria-current="page" href="adminHome.php">Home</a>
             </li>
             <li class="nav-item" style="margin-left: 20px;">
-              <a class="nav-link" href="vaccineBatchInfo.php">Vaccine Batch Information</a>
+              <a class="nav-link" href="recordVaccinationBatch.php">Record Vaccination Batch</a>
+            </li>
+            <li class="nav-item" style="margin-left: 20px;">
+              <a class="nav-link " href="vaccineBatchInfo.php">Vaccine Batch Information</a>
+            </li>
+            <li class="nav-item" style="margin-left: 20px;">
+              <a class="nav-link " href="recordVaccineData.php">New Vaccine Information</a>
             </li>
           </ul>
           <span class="navbar-text" style="color: black;">
-            Welcome <?php echo $name ?><a href="login.html" style="text-decoration: none; margin-right: 30px;"> | Log Out</a>
+            Welcome <?php echo $name ?><a href="login.html" style="text-decoration: none; margin-right: 30px;"> | Log Out </a>
           </span>
         </div>
       </div>

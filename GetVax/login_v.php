@@ -11,10 +11,13 @@ if(isset($_POST))
     if(is_array($row)) //check if there is a vlue in the array ROW
     // we can use if (empty) to check if there no element on the array ROW
     {
-      $_SESSION["username"]=$username;
-     
-      header("refresh:1; url=adminHome.php");
-      echo '<script>alert("Successfully Logged in as Healthcare Administrator")</script>';
+    	
+     $_SESSION["username"] = $username;
+     $_SESSION["healthcare"] = $row['1'];
+
+     header("refresh:1; url=adminHome.php");
+     echo '<script>alert("Successfully Logged in as Healthcare Administrator")</script>';
+
 
     }
 
@@ -25,8 +28,9 @@ if(isset($_POST))
     if(is_array($row)) //check if there is a vlue in the array ROW
     // we can use if (empty) to check if there no element on the array ROW
     {
+
       $_SESSION["username"]=$username;
-  
+      $_SESSION["userID"]=$row['id'];
       header("refresh:1; url=patientHome.php");
       echo '<script>alert("Successfully Logged in as Patient")</script>';
 
